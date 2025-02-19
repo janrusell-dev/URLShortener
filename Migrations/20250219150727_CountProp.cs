@@ -5,24 +5,25 @@
 namespace URLShortener.Migrations
 {
     /// <inheritdoc />
-    public partial class UpdateColumnName : Migration
+    public partial class CountProp : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.RenameColumn(
-                name: "shortCode",
+            migrationBuilder.AddColumn<int>(
+                name: "accessCount",
                 table: "Urls",
-                newName: "shortenUrl");
+                type: "integer",
+                nullable: false,
+                defaultValue: 0);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.RenameColumn(
-                name: "shortenUrl",
-                table: "Urls",
-                newName: "shortCode");
+            migrationBuilder.DropColumn(
+                name: "accessCount",
+                table: "Urls");
         }
     }
 }

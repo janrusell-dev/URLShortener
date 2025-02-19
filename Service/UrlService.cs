@@ -14,39 +14,62 @@ namespace URLShortener.Service
         }
         public async Task<Url> AddUrlAsync(CreateUrlDto url)
         {
+
+            string shortCode = Guid.NewGuid().ToString().Substring(0, 6);
+            string shortenedUrl = $"{shortCode}";
+
             var urls = new Url
             {
-                url = url.url
+                url = url.url,
+                shortenUrl = shortenedUrl    
             };
 
            return await _repository.AddUrlAsync(urls);
         }
 
-        public async Task DeleteUrlAsync(int id)
+        public async Task<Url> DeleteUrlAsync(string shortenUrl)
         {
-            await _repository.DeleteUrlAsync(id);
+           return await _repository.DeleteUrlAsync(shortenUrl);
         }
 
-        public async Task<ShortenUrlsDto> GetUrlByIdAsync(string shortenUrl)
+        public async Task<ShortenUrlsDto> GetUrlByShortenAsync(string shortenUrl)
         {
             var urls = await _repository.GetShortenUrlAsnyc(shortenUrl);
             if (urls == null) return null;
 
             return new ShortenUrlsDto
             {
-                url = urls.url
+                Id = urls.Id,
+                url = urls.url,
+                shortenUrl = urls.shortenUrl,
+                createdAt = urls.createdAt,
+                updatedAt = urls.updatedAt    
             };
         }
 
-        public async Task UpdateUrlAsync(int id, CreateUrlDto url)
+        public async Task <GetStatsDto> GetStatsByUrlAsync(string shortenUrl)
+        {
+            var urls =  await _repository.GetUrlStatsAsync(shortenUrl);
+            if (urls == null) return null;
+
+            return new GetStatsDto
+            {
+                Id = urls.Id,
+                url = urls.url,
+                shortenUrl = urls.shortenUrl,
+                createdAt = urls.createdAt,
+                updatedAt = urls.updatedAt,
+                accessCount = urls.accessCount
+            };
+        }
+
+        public async Task <Url> UpdateUrlAsync(string shortenUrl, CreateUrlDto url)
         {
             var urls = new Url
             {
-                Id = id,
                 url = url.url
             };
-
-            await _repository.UpdateUrlAsync(urls);
+            return await _repository.UpdateUrlAsync(shortenUrl, url);
         }
     }
 }

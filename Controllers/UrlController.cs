@@ -17,15 +17,10 @@ namespace URLShortener.Controllers
         [HttpPost]
         public async Task <IActionResult> AddUrlAsync([FromBody] CreateUrlDto urlDto)
         {
-            string shortCode = Guid.NewGuid().ToString().Substring(0, 6);
-            string shortenedUrl = $"{shortCode}";
-
             var result = await _service.AddUrlAsync(new CreateUrlDto
             {
                 url = urlDto.url,
             });
-
-            result.shortenUrl = shortenedUrl;
 
             var response = new ShortenUrlsDto
             {
@@ -41,23 +36,36 @@ namespace URLShortener.Controllers
         [HttpGet("{shortenUrl}")]
         public async Task<IActionResult> GetByIdAsync(string shortenUrl)
         {
-           var shortenUrls = await _service.GetUrlByIdAsync(shortenUrl);
+           var shortenUrls = await _service.GetUrlByShortenAsync(shortenUrl);
             
            if (shortenUrls == null) return NotFound();
    
            return Ok(shortenUrls);
         }
-        [HttpPut("{id}")]
-        public async Task <IActionResult> UpdateUrlAsync(int id, [FromBody] CreateUrlDto urlDto)
+        [HttpPut("{shortenUrl}")]
+        public async Task <IActionResult> UpdateUrlAsync([FromRoute]string shortenUrl, CreateUrlDto urlDto)
         {
-            await _service.UpdateUrlAsync(id, urlDto);
+            var updateUrl = await _service.UpdateUrlAsync(shortenUrl, urlDto);
+            
+            if (updateUrl == null) return NotFound();
+
+            return Ok(updateUrl);
+        }
+        [HttpDelete("{shortenUrl}")]
+        public async Task<IActionResult> DeleteUrlAsync(string shortenUrl)
+        {
+            await _service.DeleteUrlAsync(shortenUrl);
             return NoContent();
         }
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUrlAsync(int id)
+
+        [HttpGet("{shortenUrl}/stats")]
+        public async Task <IActionResult> GetStatusAsync(string shortenUrl)
         {
-            await _service.DeleteUrlAsync(id);
-            return NoContent();
+           var stats = await _service.GetStatsByUrlAsync(shortenUrl);
+            
+           if (stats == null) return NotFound();
+   
+           return Ok(stats);
         }
     }
 }

@@ -5,12 +5,11 @@ namespace URLShortener.Interface
 {
     public interface IUrlService
     {
-        Task<ShortenUrlsDto> GetUrlByIdAsync(string shortenUrl);
+        Task<ShortenUrlsDto> GetUrlByShortenAsync(string shortenUrl);
         Task<Url> AddUrlAsync(CreateUrlDto url);
-        Task UpdateUrlAsync(int id, CreateUrlDto url);
-        Task DeleteUrlAsync(int id);
-
-
+        Task<Url> UpdateUrlAsync(string shortenUrl, CreateUrlDto urls);
+        Task<Url> DeleteUrlAsync(string shortenUrl);
+        Task<GetStatsDto> GetStatsByUrlAsync(string shortenUrl);
     }
 
 }

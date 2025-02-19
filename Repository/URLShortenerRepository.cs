@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using URLShortener.Data;
+using URLShortener.Dto;
 using URLShortener.Interface;
 using URLShortener.Model;
 
@@ -19,28 +20,50 @@ namespace URLShortener.Repository
             return url;
         }
 
-        public async Task DeleteUrlAsync(int id)
+        public async Task<Url> DeleteUrlAsync(string shortenUrl)
         {
-            var url = await _context.Urls.FindAsync(id);
+            var url = _context.Urls.FirstOrDefault(i => i.shortenUrl == shortenUrl);
 
             if (url != null)
             {
                 _context.Urls.Remove(url);
                 await _context.SaveChangesAsync();
             }
+            return url;
         }
 
         public async Task<Url> GetShortenUrlAsnyc(string shortenUrl)
         {
-            return await _context.Urls.FirstOrDefaultAsync(u => u.shortenUrl== shortenUrl);
-        }
-
-    
-
-        public async Task UpdateUrlAsync(Url url)
-        {
-             _context.Urls.Update(url);
+           var url =  await _context.Urls.FirstOrDefaultAsync(u => u.shortenUrl== shortenUrl);
+            
+            url.accessCount++;
+            _context.Urls.Update(url);
             await _context.SaveChangesAsync();
+
+            return url;
         }
+
+        public async Task<Url> GetUrlStatsAsync(string shortenUrl)
+        {
+            return await _context.Urls.FirstOrDefaultAsync(i => i.shortenUrl == shortenUrl);
+        }
+
+        public async Task <Url> UpdateUrlAsync(string shortenUrl , CreateUrlDto urlDto)
+        {
+         var getUrl = await _context.Urls.FirstOrDefaultAsync(i => i.shortenUrl == shortenUrl);
+        
+         if (getUrl == null)
+         {
+             throw new KeyNotFoundException("URL not found.");
+         }
+
+        getUrl.url = urlDto.url;
+
+        _context.Urls.Update(getUrl); 
+        await _context.SaveChangesAsync(); 
+
+        return getUrl;
+        }
+
     }
 }

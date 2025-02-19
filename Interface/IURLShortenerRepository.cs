@@ -1,13 +1,14 @@
-﻿using URLShortener.Model;
+﻿using URLShortener.Dto;
+using URLShortener.Model;
 
 namespace URLShortener.Interface
 {
     public interface IURLShortenerRepository
     {
         Task<Url> AddUrlAsync(Url url);
-        Task UpdateUrlAsync(Url url);
-        Task DeleteUrlAsync(int id);
+        Task<Url> UpdateUrlAsync(string shortenUrl, CreateUrlDto url);
+        Task<Url> DeleteUrlAsync(string shortenUrl);
         Task<Url> GetShortenUrlAsnyc(string url);
-
+        Task<Url> GetUrlStatsAsync(string url);
     }
 }
