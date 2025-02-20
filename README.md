@@ -21,11 +21,6 @@ This project is based on **[roadmap.sh - URL Shortening Service](https://roadmap
 
 ---
 
-## 🔗 Project URL  
-[Live Demo](https://your-project-url.com)  
-
----
-
 ## 🔥 API Endpoints  
 
 ### 1️⃣ **Create a Short URL**  
