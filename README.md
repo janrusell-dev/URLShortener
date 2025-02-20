@@ -16,8 +16,7 @@ This project is based on **[roadmap.sh - URL Shortening Service](https://roadmap
 
 ## 🛠 Tech Stack  
 - **Backend:** ASP.NET Core Web API  
-- **Database:** MSSQL + Dapper  
-- **Frontend (Optional):** HTML, CSS, JavaScript  
+- **Database:** PostgreSQL + Entity Core Framework  
 - **Tools:** Postman, Swagger UI  
 
 ---
@@ -86,5 +85,26 @@ _Response: `204 No Content`_
   "id": "1",
   "accessCount": 10
 }
+```
 
+---
+
+## 🚀 How to Run the Project  
+
+```sh
+# Clone the repository  
+git clone https://github.com/your-username/url-shortener.git  
+cd url-shortener  
+
+# Install dependencies  
+dotnet restore  
+
+# Run the project  
+dotnet run  
+```
+
+---
+
+### **✅ Submit Your Solution**  
+Once updated, commit the changes and push them to GitHub. Now, your README is ready for submission! 🚀
 
