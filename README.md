@@ -41,7 +41,8 @@ This project is based on **[roadmap.sh - URL Shortening Service](https://roadmap
 {
   "id": "1",
   "shortCode": "abc123",
-  "createdAt": "2021-09-01T12:00:00Z"
+  "createdAt": "2021-09-01T12:00:00Z",
+  "updatedAt": "2021-09-01T12:00:00Z"
 }
 ```
 
@@ -55,7 +56,9 @@ This project is based on **[roadmap.sh - URL Shortening Service](https://roadmap
 {
   "id": "1",
   "url": "https://www.example.com/some/long/url",
-  "shortCode": "abc123"
+  "shortCode": "abc123",
+  "createdAt": "2021-09-01T12:00:00Z",
+  "updatedAt": "2021-09-01T12:00:00Z"
 }
 ```
 
@@ -66,6 +69,16 @@ This project is based on **[roadmap.sh - URL Shortening Service](https://roadmap
 ```json
 {
   "url": "https://www.example.com/some/updated/url"
+}
+```
+**Response:**  
+```json
+{
+  "id": "1",
+  "url": "https://www.example.com/some/updated/url",
+  "shortCode": "abc123",
+  "createdAt": "2021-09-01T12:00:00Z",
+  "updatedAt": "2021-09-01T12:30:00Z"
 }
 ```
 
@@ -83,28 +96,15 @@ _Response: `204 No Content`_
 ```json
 {
   "id": "1",
+  "url": "https://www.example.com/some/long/url",
+  "shortCode": "abc123",
+  "createdAt": "2021-09-01T12:00:00Z",
+  "updatedAt": "2021-09-01T12:00:00Z",
   "accessCount": 10
 }
 ```
 
----
 
-## 🚀 How to Run the Project  
 
-```sh
-# Clone the repository  
-git clone https://github.com/your-username/url-shortener.git  
-cd url-shortener  
 
-# Install dependencies  
-dotnet restore  
-
-# Run the project  
-dotnet run  
-```
-
----
-
-### **✅ Submit Your Solution**  
-Once updated, commit the changes and push them to GitHub. Now, your README is ready for submission! 🚀
 
