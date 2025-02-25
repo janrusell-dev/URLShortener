@@ -17,7 +17,7 @@ This project is based on **[roadmap.sh - URL Shortening Service](https://roadmap
 ## 🛠 Tech Stack  
 - **Backend:** ASP.NET Core Web API  
 - **Database:** PostgreSQL + Entity Core Framework  
-- **Tools:** Postman, Swagger UI  
+- **Tools:** pgAdmin 4(Web), Swagger UI  
 
 ---
 
